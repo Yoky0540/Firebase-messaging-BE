@@ -19,4 +19,23 @@ class NotificationService {
   }
 }
 
-module.exports = NotificationService;
+class NotificationByTopicService {
+  static async sendNotification(topic, title, body) {
+    const message = {
+      notification: {
+        title,
+        body,
+      },
+      topic: topic,
+    };
+
+    try {
+      const response = await admin.messaging().send(message);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+module.exports = {NotificationService , NotificationByTopicService};
